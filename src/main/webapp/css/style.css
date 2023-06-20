@@ -1,0 +1,24 @@
+ label {
+     color: #b0b0b0;
+ }
+
+ legend {
+     color: #b0b0b0
+ }
+
+ fieldset {
+     width: 300px;
+ }
+
+ body {
+     background-color: #1b1b32;
+     color: #f5f6f7;
+     font-family: Tahoma;
+     font-size: 16px;
+ }
+
+ input {
+     margin: 1px;
+     background-color: #b0b0b0;
+     border: 1px solid #b0b0b0;
+ }

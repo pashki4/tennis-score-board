@@ -1,11 +1,11 @@
-package vyshniakov.po;
+package com.vyshniakov;
 
 import java.sql.*;
 
 public class H2jdbcReadDemo {
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "org.h2.Driver";
-    static final String DB_URL = "jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:/scripts/init.sql'";
+    static final String DB_URL = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:/scripts/init.sql'";
 
     //  Database credentials
     static final String USER = "sa";
@@ -29,8 +29,7 @@ public class H2jdbcReadDemo {
             // STEP 3: Execute a query
             System.out.println("Connected database successfully...");
             stmt = conn.createStatement();
-            String sql = QUERY;
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(QUERY);
 
             // STEP 4: Extract data from result set
             while (rs.next()) {

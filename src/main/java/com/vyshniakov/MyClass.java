@@ -1,4 +1,4 @@
-package vyshniakov.po;
+package com.vyshniakov;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ public class MyClass {
         try {
             System.out.println("hello, world!");
             Class.forName("org.h2.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+            Connection conn = DriverManager.getConnection("jdbc:h2:mem:test", "sa", "");
             System.out.println("connected");
             // add application code here
         } catch (ClassNotFoundException ex) {

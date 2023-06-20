@@ -5,6 +5,7 @@ CREATE TABLE players
 );
 
 CREATE INDEX name_IDX on players(name);
+
 CREATE TABLE matches
 (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
