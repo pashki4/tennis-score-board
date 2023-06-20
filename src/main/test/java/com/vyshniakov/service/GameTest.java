@@ -3,7 +3,6 @@ package com.vyshniakov.service;
 import com.vyshniakov.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import static com.vyshniakov.service.GamePoints.*;
@@ -23,7 +22,6 @@ class GameTest {
 
     @Test
     @DisplayName("add point to player1")
-    @Order(1)
     void addPlayer1Point() {
         assertEquals(LOVE, game.getPlayer1Points());
         game.addPlayer1Point();
@@ -32,7 +30,6 @@ class GameTest {
 
     @Test
     @DisplayName("add point to player2")
-    @Order(2)
     void addPlayer2Point() {
         assertEquals(LOVE, game.getPlayer2Points());
         game.addPlayer2Point();
@@ -41,7 +38,6 @@ class GameTest {
 
     @Test
     @DisplayName("A game should have a winner")
-    @Order(3)
     void play() {
         assertNull(game.getWinner());
         game.play();
@@ -50,7 +46,6 @@ class GameTest {
 
     @Test
     @DisplayName("player 1 should win without deuce mode")
-    @Order(4)
     void player1WinWithoutDeuceMode() {
         assertNull(game.getWinner());
         addPointsToPlayer(true, 4);
@@ -59,7 +54,6 @@ class GameTest {
 
     @Test
     @DisplayName("player 2 should win without deuce mode")
-    @Order(5)
     void player2WinWithoutDeuceMode() {
         assertNull(game.getWinner());
         addPointsToPlayer(false, 4);
@@ -68,7 +62,6 @@ class GameTest {
 
     @Test
     @DisplayName("Deuce mode activated")
-    @Order(6)
     void deuceModeActivated() {
         assertFalse(game.isDeuce());
         deuceModeOn();
@@ -77,7 +70,6 @@ class GameTest {
 
     @Test
     @DisplayName("Deuce mode workflow")
-    @Order(7)
     void deuceMode() {
         deuceModeOn();
 
@@ -96,7 +88,6 @@ class GameTest {
 
     @Test
     @DisplayName("player 1 win after deuce")
-    @Order(8)
     void player1WinAfterDeuce() {
         deuceModeOn();
         game.addPlayer1Point();
@@ -107,7 +98,6 @@ class GameTest {
     }
     @Test
     @DisplayName("player 2 win after deuce")
-    @Order(8)
     void player2WinAfterDeuce() {
         deuceModeOn();
         game.addPlayer2Point();
