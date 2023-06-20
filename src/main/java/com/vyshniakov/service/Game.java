@@ -35,11 +35,6 @@ public class Game {
             deucePlayer1Logic();
         }
         checkWinCondition();
-        try {
-            Thread.sleep(0);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Thread sleep exception", e);
-        }
     }
 
     private void deucePlayer1Logic() {
@@ -78,11 +73,6 @@ public class Game {
             deucePlayer2Logic();
         }
         checkWinCondition();
-        try {
-            Thread.sleep(0);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Thread sleep exception", e);
-        }
     }
 
     private void deucePlayer2Logic() {

@@ -86,10 +86,35 @@ class GameTest {
         game.addPlayer2Point();
         assertEquals(FORTY, game.getPlayer1Points());
         assertEquals(FORTY, game.getPlayer2Points());
+
+        game.addPlayer2Point();
+        assertEquals(AD, game.getPlayer2Points());
+        game.addPlayer1Point();
+        assertEquals(FORTY, game.getPlayer1Points());
+        assertEquals(FORTY, game.getPlayer2Points());
+    }
+
+    @Test
+    @DisplayName("player 1 win after deuce")
+    @Order(8)
+    void player1WinAfterDeuce() {
+        deuceModeOn();
+        game.addPlayer1Point();
+        assertEquals(AD, game.getPlayer1Points());
+        game.addPlayer1Point();
+        assertEquals(GAME, game.getPlayer1Points());
+        assertEquals(player1, game.getWinner());
+    }
+    @Test
+    @DisplayName("player 2 win after deuce")
+    @Order(8)
+    void player2WinAfterDeuce() {
+        deuceModeOn();
         game.addPlayer2Point();
         assertEquals(AD, game.getPlayer2Points());
         game.addPlayer2Point();
         assertEquals(GAME, game.getPlayer2Points());
+        assertEquals(player2, game.getWinner());
     }
 
     private void deuceModeOn() {
