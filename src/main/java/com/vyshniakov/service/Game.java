@@ -18,8 +18,8 @@ public class Game {
     private boolean isDeuce = false;
 
     public Game(Set currentSet) {
-        player1 = currentSet.getPlayer1();
-        player2 = currentSet.getPlayer2();
+        this.player1 = currentSet.getPlayer1();
+        this.player2 = currentSet.getPlayer2();
         this.currentSet = currentSet;
     }
 
@@ -58,10 +58,8 @@ public class Game {
     private void checkWinCondition() {
         if (player1Points == GAME) {
             winner = player1;
-            currentSet.addGame(this);
         } else if (player2Points == GAME) {
             winner = player2;
-            currentSet.addGame(this);
         }
     }
 
@@ -108,5 +106,6 @@ public class Game {
                 addPlayer2Point();
             }
         }
+        currentSet.addGame(this);
     }
 }
