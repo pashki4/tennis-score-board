@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SetTest {
     private final Player player1 = new Player("player1");
     private final Player player2 = new Player("player2");
-    private final Match match = new Match(player1, player2);
+    private final Match match = new Match(player1, player2, true);
 
     private Set set;
     private Game game;
