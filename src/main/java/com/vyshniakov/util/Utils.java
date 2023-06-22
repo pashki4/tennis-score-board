@@ -4,12 +4,18 @@ import com.vyshniakov.dao.PlayerDao;
 import com.vyshniakov.model.OngoingMatch;
 import com.vyshniakov.model.Player;
 import com.vyshniakov.service.Game;
+import com.vyshniakov.service.Match;
 import com.vyshniakov.service.Set;
 
 import java.util.List;
 import java.util.Optional;
 
 public class Utils {
+
+    private Utils() {
+        throw new IllegalArgumentException("Util class");
+    }
+
     public static OngoingMatch createMatch(List<String> players) {
         List<Player> list = fetchPlayers(players);
         OngoingMatch ongoingMatch = new OngoingMatch();
@@ -29,6 +35,10 @@ public class Utils {
 
     public static Game createNewGame(Set set) {
         return new Game(set);
+    }
+
+    public static Set createNewSet(Match match) {
+        return new Set(match);
     }
 
 }

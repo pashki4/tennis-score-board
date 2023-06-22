@@ -25,12 +25,12 @@ public class Match {
         this.player2 = player2;
     }
 
-    public void play() {
-        while (winner == null) {
-            Set currentSet = Set.createSet(this);
-            currentSet.play();
-        }
-    }
+//    public void play() {
+//        while (winner == null) {
+//            Set currentSet = Set.createSet(this);
+//            currentSet.play();
+//        }
+//    }
 
     public void addSet(Set set) {
         sets.add(set);

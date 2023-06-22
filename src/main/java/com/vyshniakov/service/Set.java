@@ -1,14 +1,13 @@
 package com.vyshniakov.service;
 
 import com.vyshniakov.model.Player;
+import com.vyshniakov.util.Utils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -21,6 +20,7 @@ public class Set {
     private int player2Score;
     private boolean isTiebreak = false;
     private Match match;
+    private Game currentGame;
 
     @Setter(AccessLevel.NONE)
     private List<Game> games = new ArrayList<>();
@@ -29,50 +29,63 @@ public class Set {
         this.player1 = match.getPlayer1();
         this.player2 = match.getPlayer2();
         this.match = match;
+        this.currentGame = Utils.createNewGame(this);
     }
 
-    public static Set createSet(Match match) {
-        return new Set(match);
-    }
-
-    public void play() {
-        while (winner == null) {
-            Game game = Game.createGame(this);
-            game.play();
-            checkWinCondition();
-        }
-        match.addSet(this);
-    }
-
-    private void checkWinCondition() {
-        Map<Player, Long> playerWins = games.stream()
-                .collect(Collectors.groupingBy(Game::getWinner, Collectors.counting()));
-
-        Long p1WinSets = playerWins.get(player1);
-        Long p2WinSets = playerWins.get(player2);
-
-        checkTiebreak(p1WinSets, p2WinSets);
-
-        if (!isTiebreak) {
-            playerWins.entrySet().stream()
-                    .filter(entry -> entry.getValue().equals(6L))
-                    .findAny()
-                    .ifPresent(entry -> winner = entry.getKey());
-        } else {
-            playerWins.entrySet().stream()
-                    .filter(entry -> entry.getValue().equals(7L))
-                    .findAny()
-                    .ifPresent(entry -> winner = entry.getKey());
+    public void addPlayer1GamePoint() {
+        if (winner == null) {
+            ifCurrentGameGotWinnerCreateNew();
+            currentGame.addPlayer1Point();
+            if (currentGame.getWinner() != null) {
+                player1Score++;
+                games.add(currentGame);
+            }
+            checkSetWinCondition();
         }
     }
 
-    private void checkTiebreak(Long p1WinSets, Long p2WinSets) {
-        if (p1WinSets.equals(p2WinSets) && p1WinSets.equals(6L)) {
+    public void addPlayer2GamePoint() {
+        if (winner == null) {
+            ifCurrentGameGotWinnerCreateNew();
+            currentGame.addPlayer2Point();
+            if (currentGame.getWinner() != null) {
+                player2Score++;
+                games.add(currentGame);
+            }
+            checkSetWinCondition();
+        }
+    }
+
+    private void ifCurrentGameGotWinnerCreateNew() {
+        if (currentGame.getWinner() != null) {
+            currentGame = Utils.createNewGame(this);
+        }
+    }
+
+    private void checkSetWinCondition() {
+        checkTiebreak();
+        checkSetWinner();
+    }
+
+    private void checkTiebreak() {
+        if ((player1Score == player2Score) && (player1Score == 6)) {
             isTiebreak = true;
         }
     }
 
-    public void addGame(Game game) {
-        this.games.add(game);
+    private void checkSetWinner() {
+        if (!isTiebreak) {
+            if ((player1Score == 6 && player2Score <= 4) || (player1Score == 7 && player2Score == 5)) {
+                winner = player1;
+            } else if ((player2Score == 6 && player1Score <= 4) || (player2Score == 7 && player1Score == 5)) {
+                winner = player2;
+            }
+        } else {
+            if (player1Score == 7) {
+                winner = player1;
+            } else if (player2Score == 7) {
+                winner = player2;
+            }
+        }
     }
 }

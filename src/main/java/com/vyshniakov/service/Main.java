@@ -8,6 +8,5 @@ public class Main {
         Player player2 = new Player("player2");
         Match match = new Match(player1, player2);
         Set set = new Set(match);
-        set.play();
     }
 }

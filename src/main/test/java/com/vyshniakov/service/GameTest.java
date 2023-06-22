@@ -15,7 +15,7 @@ class GameTest {
     private Game game;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         Set set = new Set(match);
         game = new Game(set);
     }
@@ -37,27 +37,19 @@ class GameTest {
     }
 
     @Test
-    @DisplayName("A game should have a winner")
-    void play() {
-        assertNull(game.getWinner());
-        game.play();
-        assertNotNull(game.getWinner());
-    }
-
-    @Test
-    @DisplayName("player 1 should win without deuce mode")
+    @DisplayName("player1 should win without deuce mode")
     void player1WinWithoutDeuceMode() {
         assertNull(game.getWinner());
-        addPointsToPlayer(true, 4);
-        assertEquals("player1", game.getWinner().getName());
+        addGamePointsToPlayer(true, 4);
+        assertEquals(player1, game.getWinner());
     }
 
     @Test
-    @DisplayName("player 2 should win without deuce mode")
+    @DisplayName("player2 should win without deuce mode")
     void player2WinWithoutDeuceMode() {
         assertNull(game.getWinner());
-        addPointsToPlayer(false, 4);
-        assertEquals("player2", game.getWinner().getName());
+        addGamePointsToPlayer(false, 4);
+        assertEquals(player2, game.getWinner());
     }
 
     @Test
@@ -87,7 +79,7 @@ class GameTest {
     }
 
     @Test
-    @DisplayName("player 1 win after deuce")
+    @DisplayName("player1 win after deuce")
     void player1WinAfterDeuce() {
         deuceModeOn();
         game.addPlayer1Point();
@@ -97,7 +89,7 @@ class GameTest {
         assertEquals(player1, game.getWinner());
     }
     @Test
-    @DisplayName("player 2 win after deuce")
+    @DisplayName("player2 win after deuce")
     void player2WinAfterDeuce() {
         deuceModeOn();
         game.addPlayer2Point();
@@ -108,12 +100,12 @@ class GameTest {
     }
 
     private void deuceModeOn() {
-        addPointsToPlayer(true, 3);
-        addPointsToPlayer(false, 3);
+        addGamePointsToPlayer(true, 3);
+        addGamePointsToPlayer(false, 3);
     }
 
-    private void addPointsToPlayer(boolean firstPlayer, int playerPoints) {
-        for (int i = 0; i < playerPoints; i++) {
+    private void addGamePointsToPlayer(boolean firstPlayer, int playerPointsCount) {
+        for (int i = 0; i < playerPointsCount; i++) {
             if (firstPlayer) {
                 game.addPlayer1Point();
             } else {

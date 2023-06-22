@@ -3,8 +3,6 @@ package com.vyshniakov.service;
 import com.vyshniakov.model.Player;
 import lombok.Getter;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import static com.vyshniakov.service.GamePoints.*;
 
 @Getter
@@ -23,18 +21,24 @@ public class Game {
         this.currentSet = currentSet;
     }
 
-    public static Game createGame(Set currentSet) {
-        return new Game(currentSet);
+    public void addPlayer1Point() {
+        if (winner == null) {
+            if (!isDeuce) {
+                notDeucePlayer1Logic();
+                checkDeuce();
+            } else {
+                deucePlayer1Logic();
+            }
+            checkWinCondition();
+        }
     }
 
-    public void addPlayer1Point() {
-        if (!isDeuce) {
-            notDeucePlayer1Logic();
-            checkDeuce();
+    private void notDeucePlayer1Logic() {
+        if (player1Points != FORTY) {
+            player1Points = GamePoints.values()[player1Points.ordinal() + 1];
         } else {
-            deucePlayer1Logic();
+            player1Points = GAME;
         }
-        checkWinCondition();
     }
 
     private void deucePlayer1Logic() {
@@ -47,14 +51,6 @@ public class Game {
         }
     }
 
-    private void notDeucePlayer1Logic() {
-        if (player1Points != FORTY) {
-            player1Points = GamePoints.values()[player1Points.ordinal() + 1];
-        } else {
-            player1Points = GAME;
-        }
-    }
-
     private void checkWinCondition() {
         if (player1Points == GAME) {
             winner = player1;
@@ -64,13 +60,15 @@ public class Game {
     }
 
     public void addPlayer2Point() {
-        if (!isDeuce) {
-            notDeucePlayer2Logic();
-            checkDeuce();
-        } else {
-            deucePlayer2Logic();
+        if (winner == null) {
+            if (!isDeuce) {
+                notDeucePlayer2Logic();
+                checkDeuce();
+            } else {
+                deucePlayer2Logic();
+            }
+            checkWinCondition();
         }
-        checkWinCondition();
     }
 
     private void deucePlayer2Logic() {
@@ -95,17 +93,5 @@ public class Game {
         if ((player1Points == FORTY) && (player2Points == FORTY)) {
             isDeuce = true;
         }
-    }
-
-    public void play() {
-        while (winner == null) {
-            int player = ThreadLocalRandom.current().nextInt(2);
-            if (player == 0) {
-                addPlayer1Point();
-            } else {
-                addPlayer2Point();
-            }
-        }
-        currentSet.addGame(this);
     }
 }
