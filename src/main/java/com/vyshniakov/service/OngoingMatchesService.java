@@ -1,38 +1,27 @@
 package com.vyshniakov.service;
 
-import com.vyshniakov.model.OngoingMatch;
+import com.vyshniakov.tennis.OngoingMatch;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class OngoingMatchesService {
-    private static OngoingMatchesService instance;
-    private Map<Integer, OngoingMatch> matches;
 
-    public OngoingMatchesService() {
-        initDb();
+    private static final Map<UUID, OngoingMatch> matches = new ConcurrentHashMap<>();
+    private OngoingMatchesService() {
+
     }
 
-    private void initDb() {
-        this.matches = new HashMap<>();
-    }
-
-    public static OngoingMatchesService getInstance() {
-        if (instance == null) {
-            instance = new OngoingMatchesService();
-        }
-        return instance;
-    }
-
-    public Map<Integer, OngoingMatch> getOngoingMatches() {
+    public static Map<UUID, OngoingMatch> getOngoingMatches() {
         return matches;
     }
 
-    public OngoingMatch getMatchById(Integer id) {
-        return matches.get(id);
+    public static OngoingMatch getMatchByUUID(UUID uuid) {
+        return matches.get(uuid);
     }
 
-    public void addMatch(OngoingMatch ongoingMatch) {
-//        this.matches.put(ongoingMatch.getId(), ongoingMatch);
+    public static void addMatch(OngoingMatch ongoingMatch) {
+        matches.put(ongoingMatch.getUuid(), ongoingMatch);
     }
 }

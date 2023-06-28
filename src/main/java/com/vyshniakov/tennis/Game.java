@@ -1,9 +1,9 @@
-package com.vyshniakov.service;
+package com.vyshniakov.tennis;
 
 import com.vyshniakov.model.Player;
 import lombok.Getter;
 
-import static com.vyshniakov.service.GamePoints.*;
+import static com.vyshniakov.tennis.GamePoints.*;
 
 @Getter
 public class Game {

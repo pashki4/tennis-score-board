@@ -1,4 +1,4 @@
-package com.vyshniakov.service;
+package com.vyshniakov.tennis;
 
 public enum GamePoints {
     LOVE("0"), FIFTEEN("15"), THIRTY("30"), FORTY("40"),

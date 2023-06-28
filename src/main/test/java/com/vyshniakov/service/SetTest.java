@@ -1,6 +1,9 @@
 package com.vyshniakov.service;
 
 import com.vyshniakov.model.Player;
+import com.vyshniakov.tennis.Game;
+import com.vyshniakov.tennis.OngoingMatch;
+import com.vyshniakov.tennis.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class SetTest {
     private final Player player1 = new Player("player1");
     private final Player player2 = new Player("player2");
-    private final Match match = new Match(player1, player2, true);
+    private final OngoingMatch ongoingMatch = new OngoingMatch(player1, player2, true);
 
     private Set set;
     private Game game;
 
     @BeforeEach
     void setup() {
-        this.set = new Set(match);
+        this.set = new Set(ongoingMatch);
         this.game = new Game(set);
     }
 

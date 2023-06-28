@@ -11,19 +11,18 @@
 <body>
     <fieldset>
         <legend>Enter player names:</legend>
-        <form name="newMatch" action="/new-match" method="POST">
-            <label for="player1">Player1: <input type="text" id="player1" name="player1" required /></label>
+        <form class="playerNames" action="/new-match" method="POST">
+            <label for="player1">Player1: <input type="text" id="player1" name="player1" required="" /></label>
             <br>
-            <label for="player2">Player2: <input type="text" id="player2" name="player2" required /></label>
+            <label for="player2">Player2: <input type="text" id="player2" name="player2" required="" /></label>
             <br>
             <input type="submit" value="Start the game">
         </form>
     </fieldset>
     <div>
-        <a href="/index.jsp">Back</a>
-        <br>
-        <a href="http://localhost:8080/">localhost</a>
+        <a href="/">Back</a>
     </div>
+    <script type="text/javascript" src="/js/playersValidate.js"></script>
 </body>
 
 </html>

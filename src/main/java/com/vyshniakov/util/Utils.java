@@ -1,8 +1,8 @@
 package com.vyshniakov.util;
 
-import com.vyshniakov.service.Game;
-import com.vyshniakov.service.Match;
-import com.vyshniakov.service.Set;
+import com.vyshniakov.tennis.Game;
+import com.vyshniakov.tennis.OngoingMatch;
+import com.vyshniakov.tennis.Set;
 
 public class Utils {
 
@@ -14,8 +14,7 @@ public class Utils {
         return new Game(set);
     }
 
-    public static Set createNewSet(Match match) {
-        return new Set(match);
+    public static Set createNewSet(OngoingMatch ongoingMatch) {
+        return new Set(ongoingMatch);
     }
-
 }

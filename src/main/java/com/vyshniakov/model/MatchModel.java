@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OngoingMatch {
+public class MatchModel {
     private Player firstPlayer;
     private Player secondPlayer;
 //    private Score score;

@@ -1,58 +1,59 @@
 package com.vyshniakov.service;
 
 import com.vyshniakov.model.Player;
+import com.vyshniakov.tennis.OngoingMatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MatchTest {
+class OngoingMatchTest {
     private final Player player1 = new Player("player1");
     private final Player player2 = new Player("player2");
-    private Match match;
+    private OngoingMatch ongoingMatch;
 
     @BeforeEach
     void setup() {
-        match = new Match(player1, player2, true);
+        ongoingMatch = new OngoingMatch(player1, player2, true);
     }
 
     @Test
     @DisplayName("player1 win the BO3 match")
     void player1WinBO3() {
-        assertNull(match.getWinner());
+        assertNull(ongoingMatch.getWinner());
         addMatchPointsToPlayer(true, 2);
-        assertNotNull(match.getWinner());
-        assertEquals(player1, match.getWinner());
+        assertNotNull(ongoingMatch.getWinner());
+        assertEquals(player1, ongoingMatch.getWinner());
     }
 
     @Test
     @DisplayName("player2 win the BO3 match")
     void player2WinBO3() {
-        assertNull(match.getWinner());
+        assertNull(ongoingMatch.getWinner());
         addMatchPointsToPlayer(false, 2);
-        assertNotNull(match.getWinner());
-        assertEquals(player2, match.getWinner());
+        assertNotNull(ongoingMatch.getWinner());
+        assertEquals(player2, ongoingMatch.getWinner());
     }
 
     @Test
     @DisplayName("player1 win the BO5 match")
     void player1WinBO5() {
-        match = new Match(player1, player2, false);
-        assertNull(match.getWinner());
+        ongoingMatch = new OngoingMatch(player1, player2, false);
+        assertNull(ongoingMatch.getWinner());
         addMatchPointsToPlayer(true, 3);
-        assertNotNull(match.getWinner());
-        assertEquals(player1, match.getWinner());
+        assertNotNull(ongoingMatch.getWinner());
+        assertEquals(player1, ongoingMatch.getWinner());
     }
 
     @Test
     @DisplayName("player2 win the BO5 match")
     void player2WinBO5() {
-        match = new Match(player1, player2, false);
-        assertNull(match.getWinner());
+        ongoingMatch = new OngoingMatch(player1, player2, false);
+        assertNull(ongoingMatch.getWinner());
         addMatchPointsToPlayer(false, 3);
-        assertNotNull(match.getWinner());
-        assertEquals(player2, match.getWinner());
+        assertNotNull(ongoingMatch.getWinner());
+        assertEquals(player2, ongoingMatch.getWinner());
     }
 
 
@@ -65,9 +66,9 @@ class MatchTest {
     private void addGameScoreToPlayer(boolean firstPlayer) {
         for (int i = 0; i < 4; i++) {
             if (firstPlayer) {
-                match.addPlayer1GamePoint();
+                ongoingMatch.addPlayer1GamePoint();
             } else {
-                match.addPlayer2GamePoint();
+                ongoingMatch.addPlayer2GamePoint();
             }
         }
     }

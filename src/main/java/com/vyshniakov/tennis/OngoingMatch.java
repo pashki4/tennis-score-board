@@ -1,4 +1,4 @@
-package com.vyshniakov.service;
+package com.vyshniakov.tennis;
 
 import com.vyshniakov.model.Player;
 import com.vyshniakov.util.Utils;
@@ -8,10 +8,12 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
-public class Match {
+public class OngoingMatch {
+    private UUID uuid = UUID.randomUUID();
     private Player player1;
     private Player player2;
     private int player1Score;
@@ -23,7 +25,7 @@ public class Match {
     @Setter(AccessLevel.NONE)
     private List<Set> sets = new ArrayList<>();
 
-    public Match(Player player1, Player player2, boolean isBestOfThree) {
+    public OngoingMatch(Player player1, Player player2, boolean isBestOfThree) {
         this.player1 = player1;
         this.player2 = player2;
         this.isBestOfThree = isBestOfThree;

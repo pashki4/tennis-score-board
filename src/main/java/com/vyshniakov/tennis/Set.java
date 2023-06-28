@@ -1,4 +1,4 @@
-package com.vyshniakov.service;
+package com.vyshniakov.tennis;
 
 import com.vyshniakov.model.Player;
 import com.vyshniakov.util.Utils;
@@ -19,16 +19,16 @@ public class Set {
     private int player1Score;
     private int player2Score;
     private boolean isTiebreak = false;
-    private Match match;
+    private OngoingMatch ongoingMatch;
     private Game currentGame;
 
     @Setter(AccessLevel.NONE)
     private List<Game> games = new ArrayList<>();
 
-    public Set(Match match) {
-        this.player1 = match.getPlayer1();
-        this.player2 = match.getPlayer2();
-        this.match = match;
+    public Set(OngoingMatch ongoingMatch) {
+        this.player1 = ongoingMatch.getPlayer1();
+        this.player2 = ongoingMatch.getPlayer2();
+        this.ongoingMatch = ongoingMatch;
         this.currentGame = Utils.createNewGame(this);
     }
 

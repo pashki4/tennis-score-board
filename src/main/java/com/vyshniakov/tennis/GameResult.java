@@ -1,4 +1,4 @@
-package com.vyshniakov.service;
+package com.vyshniakov.tennis;
 
 import com.vyshniakov.model.Player;
 
