@@ -17,11 +17,13 @@ import java.util.List;
 public class MatchScoreController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         List<Player> players = extractPlayers(req);
         OngoingMatch match = new OngoingMatch(players.get(0), players.get(1), true);
         OngoingMatchesService.addMatch(match);
-        resp.sendRedirect("/jsp/match-score?uuid=" + match.getUuid());
+//        req.setAttribute("match", OngoingMatchesService.getOngoingMatches().get(match.getUuid()));
+//        req.getRequestDispatcher("/jsp/match-score.jsp?uuid=" + match.getUuid())
+//                .forward(req, resp);
+        resp.sendRedirect("/jsp/match-score.jsp?uuid=" + match.getUuid());
     }
 
     private List<Player> extractPlayers(HttpServletRequest req) throws IOException {
