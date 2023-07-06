@@ -1,6 +1,5 @@
 package com.vyshniakov.controller;
 
-import com.vyshniakov.model.Player;
 import com.vyshniakov.service.OngoingMatchesService;
 import com.vyshniakov.tennis.OngoingMatch;
 import jakarta.servlet.ServletException;
@@ -10,33 +9,25 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.UUID;
 
-@WebServlet("/new-match")
+@WebServlet("/match-score/*")
 public class MatchScoreController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Player> players = extractPlayers(req);
-        OngoingMatch match = new OngoingMatch(players.get(0), players.get(1), true);
-        OngoingMatchesService.addMatch(match);
-//        req.setAttribute("match", OngoingMatchesService.getOngoingMatches().get(match.getUuid()));
-//        req.getRequestDispatcher("/jsp/match-score.jsp?uuid=" + match.getUuid())
-//                .forward(req, resp);
-        resp.sendRedirect("/jsp/match-score.jsp?uuid=" + match.getUuid());
-    }
+        String playerId = req.getReader().lines()
+                .map(input -> input.split("=")[1])
+                .findAny()
+                .orElseThrow();
+        UUID matchId = UUID.fromString(req.getParameter("uuid"));
 
-    private List<Player> extractPlayers(HttpServletRequest req) throws IOException {
-        return req.getReader().lines()
-                .map(parameters -> parameters.split("&"))
-                .flatMap(Arrays::stream)
-                .map(keyValue -> keyValue.split("=")[1])
-                .map(Player::new)
-                .toList();
-    }
+        OngoingMatch ongoingMatch = OngoingMatchesService.getMatchByUUID(matchId);
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/jsp/match-started.jsp").forward(req, resp);
+        if (playerId.equals("player1")) {
+            ongoingMatch.addPlayer1GamePoint();
+        } else {
+            ongoingMatch.addPlayer2GamePoint();
+        }
+        resp.sendRedirect("/jsp/match-score.jsp?uuid=" + ongoingMatch.getUuid());
     }
 }

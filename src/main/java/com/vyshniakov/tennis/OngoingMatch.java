@@ -23,6 +23,7 @@ public class OngoingMatch {
     private boolean isBestOfThree;
 
     @Setter(AccessLevel.NONE)
+    @Getter
     private List<Set> sets = new ArrayList<>();
 
     public OngoingMatch(Player player1, Player player2, boolean isBestOfThree) {
@@ -30,6 +31,17 @@ public class OngoingMatch {
         this.player2 = player2;
         this.isBestOfThree = isBestOfThree;
         this.currentSet = Utils.createNewSet(this);
+    }
+
+    public int getPlayer1WonSetsCount() {
+        return (int) sets.stream()
+                .filter(set -> set.getWinner().equals(player1))
+                .count();
+    }
+    public int getPlayer2WonSetsCount() {
+        return (int) sets.stream()
+                .filter(set -> set.getWinner().equals(player2))
+                .count();
     }
 
     public void addPlayer1GamePoint() {
@@ -43,6 +55,7 @@ public class OngoingMatch {
             }
         }
     }
+
     public void addPlayer2GamePoint() {
         if (winner == null) {
             ifCurrentSetGotWinnerCreateNew();
