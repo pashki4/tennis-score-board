@@ -33,17 +33,6 @@ public class OngoingMatch {
         this.currentSet = Utils.createNewSet(this);
     }
 
-    public int getPlayer1WonSetsCount() {
-        return (int) sets.stream()
-                .filter(set -> set.getWinner().equals(player1))
-                .count();
-    }
-    public int getPlayer2WonSetsCount() {
-        return (int) sets.stream()
-                .filter(set -> set.getWinner().equals(player2))
-                .count();
-    }
-
     public void addPlayer1GamePoint() {
         if (winner == null) {
             ifCurrentSetGotWinnerCreateNew();
@@ -88,5 +77,9 @@ public class OngoingMatch {
         if (currentSet.getWinner() != null) {
             currentSet = Utils.createNewSet(this);
         }
+    }
+
+    public boolean isEnded() {
+        return winner != null;
     }
 }

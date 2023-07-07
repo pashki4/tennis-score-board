@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New-match</title>
+    <title>New match</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -20,7 +20,7 @@
         </form>
     </fieldset>
     <div>
-        <a href="/">Back</a>
+        <a href="/">Go home</a>
     </div>
     <script type="text/javascript" src="/js/playersValidate.js"></script>
 </body>

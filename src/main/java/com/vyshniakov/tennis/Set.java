@@ -56,6 +56,17 @@ public class Set {
         }
     }
 
+    public int player1WinGamesCount() {
+        return (int) games.stream()
+                .filter(game -> game.getWinner().equals(player1))
+                .count();
+    }
+    public int player2WinGamesCount() {
+        return (int) games.stream()
+                .filter(game -> game.getWinner().equals(player2))
+                .count();
+    }
+
     private void ifCurrentGameGotWinnerCreateNew() {
         if (currentGame.getWinner() != null) {
             currentGame = Utils.createNewGame(this);

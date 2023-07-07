@@ -23,11 +23,20 @@ public class MatchScoreController extends HttpServlet {
 
         OngoingMatch ongoingMatch = OngoingMatchesService.getMatchByUUID(matchId);
 
+        addPointToPlayerById(playerId, ongoingMatch);
+        if (ongoingMatch.isEnded()) {
+            req.setAttribute("endedMatch", ongoingMatch);
+            req.getRequestDispatcher("/jsp/match-final-score.jsp").forward(req, resp);
+        }
+        req.getRequestDispatcher("/jsp/match-current-score.jsp?uuid=" + ongoingMatch.getUuid())
+                .forward(req, resp);
+    }
+
+    private void addPointToPlayerById(String playerId, OngoingMatch ongoingMatch) {
         if (playerId.equals("player1")) {
             ongoingMatch.addPlayer1GamePoint();
         } else {
             ongoingMatch.addPlayer2GamePoint();
         }
-        resp.sendRedirect("/jsp/match-score.jsp?uuid=" + ongoingMatch.getUuid());
     }
 }

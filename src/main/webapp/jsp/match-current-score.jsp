@@ -1,12 +1,14 @@
-<%@ page import="java.util.*, com.vyshniakov.service.OngoingMatchesService, com.vyshniakov.tennis.GamePoints" %>
-<%@ page import="com.vyshniakov.tennis.OngoingMatch" %>
-<%@ page import="com.vyshniakov.tennis.GamePoints" %>
+<%@ page import="java.util.*,
+                 com.vyshniakov.service.OngoingMatchesService,
+                 com.vyshniakov.tennis.GamePoints,
+                 com.vyshniakov.tennis.OngoingMatch,
+                 com.vyshniakov.tennis.GamePoints" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Match score</title>
 </head>
 <body>
 <h1>Match Score</h1>
@@ -14,16 +16,18 @@
 <% OngoingMatch ongoingMatch = OngoingMatchesService.getMatchByUUID(matchId); %>
 <table>
     <tr>
-        <%--        <th>PREVIOUS SET</th>--%> <% //TODO implement me%>
         <th>PLAYER</th>
         <th>SETS</th>
         <th>GAMES</th>
         <th>POINTS</th>
     </tr>
     <tr>
-        <td><%= ongoingMatch.getPlayer1().getName()%></td>
-        <td><%= ongoingMatch.getPlayer1Score()%></td>
-        <td><%= ongoingMatch.getCurrentSet().getPlayer1Score()%></td>
+        <td><%= ongoingMatch.getPlayer1().getName()%>
+        </td>
+        <td><%= ongoingMatch.getPlayer1Score()%>
+        </td>
+        <td><%= ongoingMatch.getCurrentSet().getPlayer1Score()%>
+        </td>
         <td>
             <%
                 if (ongoingMatch.getCurrentSet().getCurrentGame().getWinner() != null) {
@@ -35,9 +39,12 @@
         </td>
     </tr>
     <tr>
-        <td><%= ongoingMatch.getPlayer2().getName()%></td>
-        <td><%= ongoingMatch.getPlayer2Score()%></td>
-        <td><%= ongoingMatch.getCurrentSet().getPlayer2Score()%></td>
+        <td><%= ongoingMatch.getPlayer2().getName()%>
+        </td>
+        <td><%= ongoingMatch.getPlayer2Score()%>
+        </td>
+        <td><%= ongoingMatch.getCurrentSet().getPlayer2Score()%>
+        </td>
         <td>
             <%
                 if (ongoingMatch.getCurrentSet().getCurrentGame().getWinner() != null) {
@@ -53,8 +60,10 @@
 <fieldset>
     <legend>Add point to player:</legend>
     <form class="addPointsToPlayer1" action="/match-score?uuid=<%=matchId%>" method="POST">
-            <button name="playerId" type="submit" value="player1"><%=ongoingMatch.getPlayer1().getName()%></button>
-            <button name="playerId" type="submit" value="player2"><%=ongoingMatch.getPlayer2().getName()%></button>
+        <button name="playerId" type="submit" value="player1"><%=ongoingMatch.getPlayer1().getName()%>
+        </button>
+        <button name="playerId" type="submit" value="player2"><%=ongoingMatch.getPlayer2().getName()%>
+        </button>
     </form>
 </fieldset>
 

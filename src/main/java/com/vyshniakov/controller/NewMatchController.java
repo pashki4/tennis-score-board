@@ -20,10 +20,8 @@ public class NewMatchController extends HttpServlet {
         List<Player> players = extractPlayers(req);
         OngoingMatch match = new OngoingMatch(players.get(0), players.get(1), true);
         OngoingMatchesService.addMatch(match);
-//        req.setAttribute("match", OngoingMatchesService.getOngoingMatches().get(match.getUuid()));
-//        req.getRequestDispatcher("/jsp/match-score.jsp?uuid=" + match.getUuid())
-//                .forward(req, resp);
-        resp.sendRedirect("/jsp/match-score.jsp?uuid=" + match.getUuid());
+        req.getRequestDispatcher("/jsp/match-current-score.jsp?uuid=" + match.getUuid())
+                .forward(req, resp);
     }
 
     private List<Player> extractPlayers(HttpServletRequest req) throws IOException {
