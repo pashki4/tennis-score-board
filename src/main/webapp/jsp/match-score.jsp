@@ -26,7 +26,7 @@
         <td><%= ongoingMatch.getCurrentSet().getPlayer1Score()%></td>
         <td>
             <%
-                if (ongoingMatch.getCurrentSet().getCurrentGame().getPlayer1Points() == GamePoints.GAME) {
+                if (ongoingMatch.getCurrentSet().getCurrentGame().getWinner() != null) {
                     out.print(GamePoints.LOVE);
                 } else {
                     out.print(ongoingMatch.getCurrentSet().getCurrentGame().getPlayer1Points());
@@ -40,7 +40,7 @@
         <td><%= ongoingMatch.getCurrentSet().getPlayer2Score()%></td>
         <td>
             <%
-                if (ongoingMatch.getCurrentSet().getCurrentGame().getPlayer2Points() == GamePoints.GAME) {
+                if (ongoingMatch.getCurrentSet().getCurrentGame().getWinner() != null) {
                     out.print(GamePoints.LOVE);
                 } else {
                     out.print(ongoingMatch.getCurrentSet().getCurrentGame().getPlayer2Points());
@@ -53,9 +53,8 @@
 <fieldset>
     <legend>Add point to player:</legend>
     <form class="addPointsToPlayer1" action="/match-score?uuid=<%=matchId%>" method="POST">
-        <button name="playerId" type="submit" value="player1"><%=ongoingMatch.getPlayer1().getName()%>
-            <button name="playerId" type="submit" value="player2"><%=ongoingMatch.getPlayer2().getName()%>
-            </button>
+            <button name="playerId" type="submit" value="player1"><%=ongoingMatch.getPlayer1().getName()%></button>
+            <button name="playerId" type="submit" value="player2"><%=ongoingMatch.getPlayer2().getName()%></button>
     </form>
 </fieldset>
 
