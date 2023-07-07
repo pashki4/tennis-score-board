@@ -21,23 +21,31 @@
         <th>POINTS</th>
     </tr>
     <tr>
-        <td><%= ongoingMatch.getPlayer1().getName()%>
-        </td>
-        <td><%= ongoingMatch.getPlayer1Score()%>
-        </td>
-        <td><%= ongoingMatch.getCurrentSet().getPlayer1Score()%>
-        </td>
-        <td><%= ongoingMatch.getCurrentSet().getCurrentGame().getPlayer1Points()%>
+        <td><%= ongoingMatch.getPlayer1().getName()%></td>
+        <td><%= ongoingMatch.getPlayer1Score()%></td>
+        <td><%= ongoingMatch.getCurrentSet().getPlayer1Score()%></td>
+        <td>
+            <%
+                if (ongoingMatch.getCurrentSet().getCurrentGame().getPlayer1Points() == GamePoints.GAME) {
+                    out.print(GamePoints.LOVE);
+                } else {
+                    out.print(ongoingMatch.getCurrentSet().getCurrentGame().getPlayer1Points());
+                }
+            %>
         </td>
     </tr>
     <tr>
-        <td><%= ongoingMatch.getPlayer2().getName()%>
-        </td>
-        <td><%= ongoingMatch.getPlayer2Score()%>
-        </td>
-        <td><%= ongoingMatch.getCurrentSet().getPlayer2Score()%>
-        </td>
-        <td><%= ongoingMatch.getCurrentSet().getCurrentGame().getPlayer2Points()%>
+        <td><%= ongoingMatch.getPlayer2().getName()%></td>
+        <td><%= ongoingMatch.getPlayer2Score()%></td>
+        <td><%= ongoingMatch.getCurrentSet().getPlayer2Score()%></td>
+        <td>
+            <%
+                if (ongoingMatch.getCurrentSet().getCurrentGame().getPlayer2Points() == GamePoints.GAME) {
+                    out.print(GamePoints.LOVE);
+                } else {
+                    out.print(ongoingMatch.getCurrentSet().getCurrentGame().getPlayer2Points());
+                }
+            %>
         </td>
     </tr>
 </table>
