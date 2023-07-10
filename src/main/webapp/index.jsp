@@ -9,12 +9,14 @@
 </head>
 
 <body>
-    <h1 align="center">Wanna play tennis?</h1>
-    <form method="get" action="/new-match">
-        <center>
-            <input type="submit" value="Start new match">
-        </center>
-    </form>
+<div style="text-align: center"><h1>Start a tennis match</h1></div>
+<form method="get" action="/new-match">
+    <div style="text-align: center"><input type="submit" value="Start new match"></div>
+</form>
+<div style="text-align: center"><h1>Match overview</h1></div>
+<form method="get" action="/match-overview">
+    <div style="text-align: center"><input type="submit" value="Match overview"></div>
+</form>
 </body>
 
 </html>

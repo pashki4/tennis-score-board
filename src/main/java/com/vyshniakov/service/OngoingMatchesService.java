@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class OngoingMatchesService {
 
     private static final Map<UUID, OngoingMatch> matches = new ConcurrentHashMap<>();
+
     private OngoingMatchesService() {
 
     }
@@ -23,5 +24,9 @@ public class OngoingMatchesService {
 
     public static void addMatch(OngoingMatch ongoingMatch) {
         matches.put(ongoingMatch.getUuid(), ongoingMatch);
+    }
+
+    public static void removeEndedMatchByUUID(UUID uuid) {
+        matches.remove(uuid);
     }
 }

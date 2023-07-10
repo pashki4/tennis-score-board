@@ -1,5 +1,7 @@
 package com.vyshniakov.controller;
 
+import com.vyshniakov.dao.MatchDaoImpl;
+import com.vyshniakov.model.Match;
 import com.vyshniakov.service.OngoingMatchesService;
 import com.vyshniakov.tennis.OngoingMatch;
 import jakarta.servlet.ServletException;
@@ -20,16 +22,28 @@ public class MatchScoreController extends HttpServlet {
                 .findAny()
                 .orElseThrow();
         UUID matchId = UUID.fromString(req.getParameter("uuid"));
-
         OngoingMatch ongoingMatch = OngoingMatchesService.getMatchByUUID(matchId);
-
         addPointToPlayerById(playerId, ongoingMatch);
+
         if (ongoingMatch.isEnded()) {
+            OngoingMatchesService.removeEndedMatchByUUID(ongoingMatch.getUuid());
+            MatchDaoImpl matchDao = new MatchDaoImpl();
+            Match endedMatch = mapToMatch(ongoingMatch);
+            matchDao.save(endedMatch);
             req.setAttribute("endedMatch", ongoingMatch);
             req.getRequestDispatcher("/jsp/match-final-score.jsp").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("/jsp/match-current-score.jsp?uuid=" + ongoingMatch.getUuid())
+                    .forward(req, resp);
         }
-        req.getRequestDispatcher("/jsp/match-current-score.jsp?uuid=" + ongoingMatch.getUuid())
-                .forward(req, resp);
+    }
+
+    private Match mapToMatch(OngoingMatch ongoingMatch) {
+        Match result = new Match();
+        result.setPlayer1(ongoingMatch.getPlayer1());
+        result.setPlayer2(ongoingMatch.getPlayer2());
+        result.setWinner(ongoingMatch.getWinner());
+        return result;
     }
 
     private void addPointToPlayerById(String playerId, OngoingMatch ongoingMatch) {
