@@ -2,31 +2,57 @@ package com.vyshniakov.dao;
 
 import com.vyshniakov.exception.MatchDaoException;
 import com.vyshniakov.model.Match;
+import com.vyshniakov.model.Player;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class MatchDaoImpl {
+
     private final EntityManagerFactory emf;
 
-    public MatchDaoImpl() {
-        emf = Persistence.createEntityManagerFactory("h2TennisScore");
+    public MatchDaoImpl(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
     public void save(Match match) {
-        performWithinTx(entityManager -> entityManager.persist(match));
+        EntityManager entityManager = emf.createEntityManager();
+        entityManager.getTransaction().begin();
+        try {
+            Player player1 = getPlayerByNameOrCreateNew(match.getPlayer1().getName(), entityManager);
+            Player player2 = getPlayerByNameOrCreateNew(match.getPlayer2().getName(), entityManager);
+            updateMatchWithContextPlayers(match, player1, player2);
+            entityManager.persist(match);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new MatchDaoException("Error performing save operation", e);
+        } finally {
+            entityManager.close();
+        }
     }
 
-    public List<Match> findMatchesByPlayerId(Long id) {
-        return performReturningWithinTx(entityManager
-                -> entityManager.createQuery("SELECT m FROM Match m WHERE m.player1.id =: id " +
-                        "OR m.player2.id =: id", Match.class)
-                .setParameter("id", id)
-                .getResultList());
+    private void updateMatchWithContextPlayers(Match match, Player player1, Player player2) {
+        match.setPlayer1(player1);
+        match.setPlayer2(player2);
+        if (match.getWinner().getName().equals(player1.getName())) {
+            match.setWinner(player1);
+        } else {
+            match.setWinner(player2);
+        }
+    }
+
+    private Player getPlayerByNameOrCreateNew(String name, EntityManager entityManager) {
+        return entityManager
+                .createQuery("SELECT p FROM Player p WHERE p.name =: name", Player.class)
+                .setParameter("name", name)
+                .getResultStream()
+                .findAny()
+                .orElseGet(() -> new Player(name)
+                );
     }
 
     public List<Match> findAllMatches() {
@@ -54,7 +80,7 @@ public class MatchDaoImpl {
             entityManager.getTransaction().rollback();
             throw new MatchDaoException("Error performing dao operation", e);
         } finally {
-            entityManager.clear();
+            entityManager.close();
         }
     }
 }

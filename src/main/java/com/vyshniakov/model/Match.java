@@ -17,15 +17,15 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "player1", nullable = false)
     private Player player1;
 
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "player2", nullable = false)
     private Player player2;
 
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "winner", nullable = false)
     private Player winner;
 }

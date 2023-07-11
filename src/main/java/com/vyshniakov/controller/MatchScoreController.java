@@ -1,7 +1,8 @@
 package com.vyshniakov.controller;
 
-import com.vyshniakov.dao.MatchDaoImpl;
 import com.vyshniakov.model.Match;
+import com.vyshniakov.model.Player;
+import com.vyshniakov.service.FinishedMatchesPersistenceService;
 import com.vyshniakov.service.OngoingMatchesService;
 import com.vyshniakov.tennis.OngoingMatch;
 import jakarta.servlet.ServletException;
@@ -26,23 +27,26 @@ public class MatchScoreController extends HttpServlet {
         addPointToPlayerById(playerId, ongoingMatch);
 
         if (ongoingMatch.isEnded()) {
-            OngoingMatchesService.removeEndedMatchByUUID(ongoingMatch.getUuid());
-            MatchDaoImpl matchDao = new MatchDaoImpl();
-            Match endedMatch = mapToMatch(ongoingMatch);
-            matchDao.save(endedMatch);
+            OngoingMatchesService.removeEndedMatchByUUID(matchId);
+            FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService();
+            Match match = mapToMatch(ongoingMatch.getPlayer1(), ongoingMatch.getPlayer2(), ongoingMatch.getWinner());
+            persistenceService.saveMatch(match);
             req.setAttribute("endedMatch", ongoingMatch);
             req.getRequestDispatcher("/jsp/match-final-score.jsp").forward(req, resp);
-        } else {
-            req.getRequestDispatcher("/jsp/match-current-score.jsp?uuid=" + ongoingMatch.getUuid())
-                    .forward(req, resp);
         }
+        req.getRequestDispatcher("/jsp/match-current-score.jsp?uuid=" + ongoingMatch.getUuid())
+                .forward(req, resp);
     }
 
-    private Match mapToMatch(OngoingMatch ongoingMatch) {
+    private Match mapToMatch(Player player1, Player player2, Player winner) {
         Match result = new Match();
-        result.setPlayer1(ongoingMatch.getPlayer1());
-        result.setPlayer2(ongoingMatch.getPlayer2());
-        result.setWinner(ongoingMatch.getWinner());
+        result.setPlayer1(player1);
+        result.setPlayer2(player2);
+        if (winner.getName().equals(player1.getName())) {
+            result.setWinner(player1);
+        } else {
+            result.setWinner(player2);
+        }
         return result;
     }
 
