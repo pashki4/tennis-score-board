@@ -1,6 +1,5 @@
-<%@ page import="com.vyshniakov.model.Match" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +8,11 @@
     <title>All matches</title>
 </head>
 <body>
-<% List<Match> allMatches = (List<Match>) request.getAttribute("allMatches");%>
-<% for (Match match : allMatches) { %>
-<%= match%>
-<br>
-<%}%>
+<h3>All matches</h3>
+<c:set var="matches" value='<%=request.getAttribute("allMatches")%>'/>
+<c:forEach var="word" items="${matches}">
+    <c:out value="${word}"/>
+    <br>
+</c:forEach>
 </body>
 </html>

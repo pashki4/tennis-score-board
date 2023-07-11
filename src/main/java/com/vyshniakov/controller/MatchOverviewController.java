@@ -1,6 +1,5 @@
 package com.vyshniakov.controller;
 
-import com.vyshniakov.dao.MatchDaoImpl;
 import com.vyshniakov.model.Match;
 import com.vyshniakov.service.FinishedMatchesPersistenceService;
 import jakarta.servlet.ServletException;
