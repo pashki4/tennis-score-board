@@ -16,6 +16,14 @@ import java.util.UUID;
 
 @WebServlet("/match-score/*")
 public class MatchScoreController extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String uuid = req.getParameter("uuid");
+        req.getRequestDispatcher("/jsp/match-current-score.jsp?uuid=" + uuid)
+                .forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String playerId = req.getReader().lines()

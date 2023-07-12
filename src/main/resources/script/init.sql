@@ -37,4 +37,122 @@ VALUES ('222');
 INSERT INTO matches (player1, player2, winner)
 VALUES (7, 8, 7);
 INSERT INTO matches (player1, player2, winner)
+VALUES (8, 7, 8);INSERT INTO matches (player1, player2, winner)
+VALUES (7, 8, 7);
+INSERT INTO matches (player1, player2, winner)
 VALUES (8, 7, 8);
+INSERT INTO matches (player1, player2, winner)
+VALUES (7, 8, 7);
+INSERT INTO matches (player1, player2, winner)
+VALUES (8, 7, 8);INSERT INTO matches (player1, player2, winner)
+VALUES (7, 8, 7);
+INSERT INTO matches (player1, player2, winner)
+VALUES (8, 7, 8);
+INSERT INTO matches (player1, player2, winner)
+VALUES (7, 8, 7);
+INSERT INTO matches (player1, player2, winner)
+VALUES (8, 7, 8);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);
+INSERT INTO matches (player1, player2, winner)
+VALUES (1, 2, 1);

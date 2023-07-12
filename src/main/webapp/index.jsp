@@ -13,9 +13,9 @@
 <form method="get" action="/new-match">
     <div style="text-align: center"><input type="submit" value="Start new match"></div>
 </form>
-<div style="text-align: center"><h1>Match overview</h1></div>
-<form method="get" action="/match-overview">
-    <div style="text-align: center"><input type="submit" value="Match overview"></div>
+<div style="text-align: center"><h1>Matches overview</h1></div>
+<form method="get" action="/matches">
+    <div style="text-align: center"><input type="submit" value="Matches overview"></div>
 </form>
 </body>
 

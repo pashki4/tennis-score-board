@@ -5,13 +5,15 @@ import com.vyshniakov.model.Match;
 import com.vyshniakov.model.Player;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
+import org.hibernate.Session;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class MatchDao {
 
+    public static final int RECORDS_ON_PAGE = 5;
     private final EntityManagerFactory emf;
 
     public MatchDao(EntityManagerFactory emf) {
@@ -55,19 +57,47 @@ public class MatchDao {
                 );
     }
 
-    public List<Match> findAllMatches() {
-        return performReturningWithinTx(entityManager
-                -> entityManager.createQuery("SELECT m FROM Match m", Match.class)
-                .getResultList()
-        );
+    public List<Match> findAllMatchesPagination(int pageNumber) {
+        EntityManager entityManager = emf.createEntityManager();
+        entityManager.unwrap(Session.class).setDefaultReadOnly(true);
+
+        entityManager.getTransaction().begin();
+        try {
+            TypedQuery<Match> query = entityManager.createQuery("SELECT m FROM Match m ORDER BY m.id", Match.class);
+            query.setFirstResult((pageNumber - 1) * RECORDS_ON_PAGE);
+            query.setMaxResults(RECORDS_ON_PAGE);
+            List<Match> result = query.getResultList();
+            entityManager.getTransaction().commit();
+            return result;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new MatchDaoException("Error performing findAllMatches", e);
+        } finally {
+            entityManager.close();
+        }
     }
 
-    private void performWithinTx(Consumer<EntityManager> consumer) {
-        performReturningWithinTx(entityManager -> {
-            consumer.accept(entityManager);
-            return null;
-        });
+    public List<Match> findAllMatchesPaginationFilterByPlayerName(int page, String playerName) {
+        EntityManager entityManager = emf.createEntityManager();
+        entityManager.unwrap(Session.class).setDefaultReadOnly(true);
+        entityManager.getTransaction().begin();
+        try {
+            TypedQuery<Match> query = entityManager.createQuery("SELECT m FROM Match m " +
+                    "WHERE m.player1.name =: playerName OR m.player2.name =: playerName ORDER BY m.id", Match.class);
+            query.setFirstResult((page - 1) * RECORDS_ON_PAGE);
+            query.setMaxResults(RECORDS_ON_PAGE);
+            query.setParameter("playerName", playerName);
+            List<Match> result = query.getResultList();
+            entityManager.getTransaction().commit();
+            return result;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new MatchDaoException("Error performing findAllMatches", e);
+        } finally {
+            entityManager.close();
+        }
     }
+
 
     private <T> T performReturningWithinTx(Function<EntityManager, T> function) {
         EntityManager entityManager = emf.createEntityManager();

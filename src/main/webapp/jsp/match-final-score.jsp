@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Final score</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <% OngoingMatch endedMatch = (OngoingMatch) request.getAttribute("endedMatch"); %>

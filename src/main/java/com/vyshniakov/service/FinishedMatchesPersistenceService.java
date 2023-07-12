@@ -8,7 +8,7 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 
 public class FinishedMatchesPersistenceService {
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("h2");
+    private final static EntityManagerFactory emf = Persistence.createEntityManagerFactory("h2");
     private final MatchDao matchDao = new MatchDao(emf);
 
     public FinishedMatchesPersistenceService() {
@@ -18,7 +18,11 @@ public class FinishedMatchesPersistenceService {
         matchDao.save(match);
     }
 
-    public List<Match> findAllMatches() {
-        return matchDao.findAllMatches();
+    public List<Match> findAllMatchesPagination(int pageNumber) {
+        return matchDao.findAllMatchesPagination(pageNumber);
+    }
+
+    public List<Match> findAllMatchesPaginationFilterByPlayerName(int pageNumber, String playerName) {
+        return matchDao.findAllMatchesPaginationFilterByPlayerName(pageNumber, playerName);
     }
 }
