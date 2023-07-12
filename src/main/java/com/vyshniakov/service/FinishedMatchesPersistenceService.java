@@ -25,4 +25,12 @@ public class FinishedMatchesPersistenceService {
     public List<Match> findAllMatchesPaginationFilterByPlayerName(int pageNumber, String playerName) {
         return matchDao.findAllMatchesPaginationFilterByPlayerName(pageNumber, playerName);
     }
+
+    public Long recordsByPlayerName(String playerName) {
+        return matchDao.recordsByPlayerName(playerName);
+    }
+
+    public Long records() {
+        return matchDao.records();
+    }
 }

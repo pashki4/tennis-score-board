@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Final score</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <% OngoingMatch endedMatch = (OngoingMatch) request.getAttribute("endedMatch"); %>
@@ -26,7 +26,7 @@
         </tr>
     </table>
     <div>
-        <a href="/">Go home</a>
+        <a href="${pageContext.request.contextPath}/">Go home</a>
     </div>
 </fieldset>
 </body>

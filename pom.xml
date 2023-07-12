@@ -5,7 +5,7 @@
     <artifactId>tennis-score-board</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>tennis-score-board Maven Webapp</name>
+    <name>tennis-score-board</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -60,6 +60,7 @@
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>3.0.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -71,6 +72,7 @@
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
             <version>3.0.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -85,6 +87,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
+                <configuration>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -92,6 +97,5 @@
                 <version>3.8.1</version>
             </plugin>
         </plugins>
-        <finalName>tennis-score-board</finalName>
     </build>
 </project>

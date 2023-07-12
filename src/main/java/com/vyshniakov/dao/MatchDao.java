@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 public class MatchDao {
 
-    public static final int RECORDS_ON_PAGE = 5;
+    public static final int RECORDS_PER_PAGE = 5;
     private final EntityManagerFactory emf;
 
     public MatchDao(EntityManagerFactory emf) {
@@ -64,8 +64,8 @@ public class MatchDao {
         entityManager.getTransaction().begin();
         try {
             TypedQuery<Match> query = entityManager.createQuery("SELECT m FROM Match m ORDER BY m.id", Match.class);
-            query.setFirstResult((pageNumber - 1) * RECORDS_ON_PAGE);
-            query.setMaxResults(RECORDS_ON_PAGE);
+            query.setFirstResult((pageNumber - 1) * RECORDS_PER_PAGE);
+            query.setMaxResults(RECORDS_PER_PAGE);
             List<Match> result = query.getResultList();
             entityManager.getTransaction().commit();
             return result;
@@ -84,8 +84,8 @@ public class MatchDao {
         try {
             TypedQuery<Match> query = entityManager.createQuery("SELECT m FROM Match m " +
                     "WHERE m.player1.name =: playerName OR m.player2.name =: playerName ORDER BY m.id", Match.class);
-            query.setFirstResult((page - 1) * RECORDS_ON_PAGE);
-            query.setMaxResults(RECORDS_ON_PAGE);
+            query.setFirstResult((page - 1) * RECORDS_PER_PAGE);
+            query.setMaxResults(RECORDS_PER_PAGE);
             query.setParameter("playerName", playerName);
             List<Match> result = query.getResultList();
             entityManager.getTransaction().commit();
@@ -98,17 +98,37 @@ public class MatchDao {
         }
     }
 
-
-    private <T> T performReturningWithinTx(Function<EntityManager, T> function) {
+    public Long recordsByPlayerName(String playerName) {
         EntityManager entityManager = emf.createEntityManager();
+        entityManager.unwrap(Session.class).setDefaultReadOnly(true);
         entityManager.getTransaction().begin();
         try {
-            T result = function.apply(entityManager);
+            Long result = entityManager.createQuery("SELECT COUNT(m.id) FROM Match m " +
+                            "WHERE m.player1.name =: playerName OR m.player2.name =: playerName", Long.class)
+                    .setParameter("playerName", playerName)
+                    .getSingleResult();
             entityManager.getTransaction().commit();
             return result;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            throw new MatchDaoException("Error performing dao operation", e);
+            throw new MatchDaoException("Error performing pageCountByPlayerName", e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public Long records() {
+        EntityManager entityManager = emf.createEntityManager();
+        entityManager.unwrap(Session.class).setDefaultReadOnly(true);
+        entityManager.getTransaction().begin();
+        try {
+            Long result = entityManager.createQuery("SELECT COUNT(m.id) FROM Match m", Long.class)
+                    .getSingleResult();
+            entityManager.getTransaction().commit();
+            return result;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new MatchDaoException("Error performing pageCount", e);
         } finally {
             entityManager.close();
         }

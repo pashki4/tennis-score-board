@@ -1,5 +1,6 @@
 package com.vyshniakov.controller;
 
+import com.vyshniakov.dao.MatchDao;
 import com.vyshniakov.model.Match;
 import com.vyshniakov.service.FinishedMatchesPersistenceService;
 import jakarta.servlet.ServletException;
@@ -27,12 +28,19 @@ public class MatchesController extends HttpServlet {
         }
         FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService();
         List<Match> matches;
-        if (playerName != null) {
+        Long records = 0L;
+
+        //Not atomic operation
+        if (playerName != null && !playerName.isBlank()) {
             matches = persistenceService.findAllMatchesPaginationFilterByPlayerName(page, playerName);
+            records = persistenceService.recordsByPlayerName(playerName);
         } else {
             matches = persistenceService.findAllMatchesPagination(page);
+            records = persistenceService.records();
         }
         req.setAttribute("matches", matches);
+        req.setAttribute("records", records);
+        req.setAttribute("recordPerPage", MatchDao.RECORDS_PER_PAGE);
         req.getRequestDispatcher("/jsp/all-matches.jsp").forward(req, resp);
     }
 }

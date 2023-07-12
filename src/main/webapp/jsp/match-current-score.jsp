@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Match score</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <h1>Match Score</h1>
@@ -60,7 +60,8 @@
 
 <fieldset>
     <legend>Add point to player:</legend>
-    <form class="addPointsToPlayer1" action="/match-score?uuid=<%=matchId%>" method="POST">
+    <form class="addPointsToPlayer1" action="${pageContext.request.contextPath}/match-score?uuid=<%=matchId%>"
+          method="POST">
         <button name="playerId" type="submit" value="player1"><%=ongoingMatch.getPlayer1().getName()%>
         </button>
         <button name="playerId" type="submit" value="player2"><%=ongoingMatch.getPlayer2().getName()%>
