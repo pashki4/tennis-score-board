@@ -9,7 +9,6 @@ import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 
 import java.util.List;
-import java.util.function.Function;
 
 public class MatchDao {
 

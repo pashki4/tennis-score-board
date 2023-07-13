@@ -28,19 +28,21 @@ public class MatchesController extends HttpServlet {
         }
         FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService();
         List<Match> matches;
-        Long records = 0L;
+        Long allAvailableRecords = 0L;
 
         //Not atomic operation
         if (playerName != null && !playerName.isBlank()) {
             matches = persistenceService.findAllMatchesPaginationFilterByPlayerName(page, playerName);
-            records = persistenceService.recordsByPlayerName(playerName);
+            allAvailableRecords = persistenceService.recordsByPlayerName(playerName);
         } else {
             matches = persistenceService.findAllMatchesPagination(page);
-            records = persistenceService.records();
+            allAvailableRecords = persistenceService.records();
         }
         req.setAttribute("matches", matches);
-        req.setAttribute("records", records);
-        req.setAttribute("recordPerPage", MatchDao.RECORDS_PER_PAGE);
+        req.setAttribute("availableRecords", allAvailableRecords);
+        req.setAttribute("playerName", playerName);
+        req.setAttribute("recordsPerPage", MatchDao.RECORDS_PER_PAGE);
+        req.setAttribute("currentPage", page);
         req.getRequestDispatcher("/jsp/all-matches.jsp").forward(req, resp);
     }
 }
