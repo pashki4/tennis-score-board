@@ -10,6 +10,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,8 +22,10 @@ public class NewMatchController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Player> players = extractPlayers(req);
+        players.forEach(System.out::println);
         OngoingMatch match = new OngoingMatch(players.get(0), players.get(1), true);
         OngoingMatchesService.addMatch(match);
+        req.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("/jsp/match-current-score.jsp?uuid=" + match.getUuid())
                 .forward(req, resp);
     }
@@ -29,6 +35,7 @@ public class NewMatchController extends HttpServlet {
                 .map(parameters -> parameters.split("&"))
                 .flatMap(Arrays::stream)
                 .map(keyValue -> keyValue.split("=")[1])
+                .map(name -> URLDecoder.decode(name, StandardCharsets.UTF_8))
                 .map(Player::new)
                 .toList();
     }

@@ -3,10 +3,9 @@
                  com.vyshniakov.tennis.GamePoints,
                  com.vyshniakov.tennis.OngoingMatch,
                  com.vyshniakov.tennis.GamePoints" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Match score</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -23,8 +22,7 @@
         <th>POINTS</th>
     </tr>
     <tr>
-        <td><%= ongoingMatch.getPlayer1().getName()%>
-        </td>
+        <td><%= ongoingMatch.getPlayer1().getName()%></td>
         <td><%= ongoingMatch.getPlayer1Score()%>
         </td>
         <td><%= ongoingMatch.getCurrentSet().getPlayer1Score()%>
