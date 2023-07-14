@@ -6,8 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.nio.ReadOnlyBufferException;
+
 @NoArgsConstructor
-@ToString
 @Setter
 @Getter
 @Entity
@@ -23,5 +24,10 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

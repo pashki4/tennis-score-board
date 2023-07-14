@@ -22,7 +22,6 @@ public class NewMatchController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Player> players = extractPlayers(req);
-        players.forEach(System.out::println);
         OngoingMatch match = new OngoingMatch(players.get(0), players.get(1), true);
         OngoingMatchesService.addMatch(match);
         req.setCharacterEncoding("UTF-8");
