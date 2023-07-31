@@ -9,11 +9,11 @@ import static com.vyshniakov.tennis.GamePoints.*;
 public class Game {
     private GamePoints player1Points = LOVE;
     private GamePoints player2Points = LOVE;
-    private final Player player1;
-    private final Player player2;
-    private final Set currentSet;
-    private Player winner;
-    private boolean isDeuce = false;
+    protected final Player player1;
+    protected final Player player2;
+    protected final Set currentSet;
+    protected Player winner;
+    protected boolean isDeuce = false;
 
     public Game(Set currentSet) {
         this.player1 = currentSet.getPlayer1();

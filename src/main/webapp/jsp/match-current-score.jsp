@@ -1,6 +1,5 @@
 <%@ page import="java.util.*,
                  com.vyshniakov.service.OngoingMatchesService,
-                 com.vyshniakov.tennis.GamePoints,
                  com.vyshniakov.tennis.OngoingMatch,
                  com.vyshniakov.tennis.GamePoints" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
