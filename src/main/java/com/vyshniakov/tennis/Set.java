@@ -61,6 +61,7 @@ public class Set {
                 .filter(game -> game.getWinner().equals(player1))
                 .count();
     }
+
     public int player2WinGamesCount() {
         return (int) games.stream()
                 .filter(game -> game.getWinner().equals(player2))
@@ -68,8 +69,10 @@ public class Set {
     }
 
     private void ifCurrentGameGotWinnerCreateNew() {
-        if (currentGame.getWinner() != null) {
+        if (currentGame.getWinner() != null && !isTiebreak) {
             currentGame = Utils.createNewGame(this);
+        } else if (currentGame.getWinner() != null) {
+            currentGame = Utils.createTiebreakGame(this);
         }
     }
 

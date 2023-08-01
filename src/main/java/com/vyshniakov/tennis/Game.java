@@ -7,13 +7,13 @@ import static com.vyshniakov.tennis.GamePoints.*;
 
 @Getter
 public class Game {
-    private int player1Points;
-    private int player2Points;
+    protected int player1Points;
+    protected int player2Points;
     protected final Player player1;
     protected final Player player2;
     protected final Set currentSet;
     protected Player winner;
-    protected boolean isDeuce = false;
+    private boolean isDeuce = false;
 
     public Game(Set currentSet) {
         this.player1 = currentSet.getPlayer1();
@@ -51,7 +51,7 @@ public class Game {
         }
     }
 
-    private void checkWinCondition() {
+    protected void checkWinCondition() {
         if (player1Points == 5) {
             winner = player1;
         } else if (player2Points == 5) {

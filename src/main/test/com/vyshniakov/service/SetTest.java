@@ -4,6 +4,7 @@ import com.vyshniakov.model.Player;
 import com.vyshniakov.tennis.Game;
 import com.vyshniakov.tennis.OngoingMatch;
 import com.vyshniakov.tennis.Set;
+import com.vyshniakov.tennis.TiebreakGame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,12 +17,10 @@ class SetTest {
     private final OngoingMatch ongoingMatch = new OngoingMatch(player1, player2, true);
 
     private Set set;
-    private Game game;
 
     @BeforeEach
     void setup() {
         this.set = new Set(ongoingMatch);
-        this.game = new Game(set);
     }
 
     @Test
@@ -90,9 +89,12 @@ class SetTest {
         addSetPointsToPlayer(false, 5);
         addSetPointsToPlayer(true, 1);
         addSetPointsToPlayer(false, 1);
-        addSetPointsToPlayer(false, 1);
+        assertTrue(set.isTiebreak());
+        addGamePointsToPlayer(false, 7);
+        assertEquals(TiebreakGame.class, set.getCurrentGame().getClass());
         assertEquals(player2, set.getWinner());
     }
+
     @Test
     @DisplayName("player1 win after tiebreak")
     void player1WinAfterTiebreak() {
@@ -101,10 +103,11 @@ class SetTest {
         addSetPointsToPlayer(false, 5);
         addSetPointsToPlayer(true, 1);
         addSetPointsToPlayer(false, 1);
-        addSetPointsToPlayer(true, 1);
+        assertTrue(set.isTiebreak());
+        addGamePointsToPlayer(true, 7);
+        assertEquals(TiebreakGame.class, set.getCurrentGame().getClass());
         assertEquals(player1, set.getWinner());
     }
-
 
     private void addGamePointsToPlayer(boolean firstPlayer, int gamePointsCount) {
         for (int i = 0; i < gamePointsCount; i++) {
