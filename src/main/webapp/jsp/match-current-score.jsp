@@ -21,7 +21,8 @@
         <th>POINTS</th>
     </tr>
     <tr>
-        <td><%= ongoingMatch.getPlayer1().getName()%></td>
+        <td><%= ongoingMatch.getPlayer1().getName()%>
+        </td>
         <td><%= ongoingMatch.getPlayer1Score()%>
         </td>
         <td><%= ongoingMatch.getCurrentSet().getPlayer1Score()%>
@@ -29,10 +30,12 @@
         <td>
             <%
                 if (ongoingMatch.getCurrentSet().getCurrentGame().getWinner() != null) {
-                    out.print(GamePoints.LOVE);
-                } else {
-                    out.print(ongoingMatch.getCurrentSet().getCurrentGame().getPlayer1Points());
-                }
+                    out.print(GamePoints.values()[0].getDescription());
+                } else if (!ongoingMatch.getCurrentSet().isTiebreak()) {
+                out.print(GamePoints.values()[ongoingMatch.getCurrentSet().getCurrentGame().getPlayer1Points()].getDescription());
+            } else {
+                out.print(ongoingMatch.getCurrentSet().getCurrentGame().getPlayer1Points());
+            }
             %>
         </td>
     </tr>
@@ -46,7 +49,9 @@
         <td>
             <%
                 if (ongoingMatch.getCurrentSet().getCurrentGame().getWinner() != null) {
-                    out.print(GamePoints.LOVE);
+                    out.print(GamePoints.values()[0].getDescription());
+                } else if (!ongoingMatch.getCurrentSet().isTiebreak()) {
+                    out.print(GamePoints.values()[ongoingMatch.getCurrentSet().getCurrentGame().getPlayer2Points()].getDescription());
                 } else {
                     out.print(ongoingMatch.getCurrentSet().getCurrentGame().getPlayer2Points());
                 }
