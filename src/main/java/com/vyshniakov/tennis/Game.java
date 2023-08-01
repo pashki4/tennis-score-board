@@ -7,8 +7,8 @@ import static com.vyshniakov.tennis.GamePoints.*;
 
 @Getter
 public class Game {
-    private GamePoints player1Points = LOVE;
-    private GamePoints player2Points = LOVE;
+    private int player1Points;
+    private int player2Points;
     protected final Player player1;
     protected final Player player2;
     protected final Set currentSet;
@@ -34,27 +34,27 @@ public class Game {
     }
 
     private void notDeucePlayer1Logic() {
-        if (player1Points != FORTY) {
-            player1Points = GamePoints.values()[player1Points.ordinal() + 1];
+        if (player1Points != 3) {
+            player1Points++;
         } else {
-            player1Points = GAME;
+            player1Points = 5;
         }
     }
 
     private void deucePlayer1Logic() {
-        if (player1Points == FORTY && player2Points == FORTY) {
-            player1Points = AD;
-        } else if (player1Points == AD && player2Points == FORTY) {
-            player1Points = GAME;
+        if (player1Points == 3 && player2Points == 3) {
+            player1Points = 4;
+        } else if (player1Points == 4 && player2Points == 3) {
+            player1Points = 5;
         } else {
-            player1Points = player2Points = FORTY;
+            player1Points = player2Points = 3;
         }
     }
 
     private void checkWinCondition() {
-        if (player1Points == GAME) {
+        if (player1Points == 5) {
             winner = player1;
-        } else if (player2Points == GAME) {
+        } else if (player2Points == 5) {
             winner = player2;
         }
     }
@@ -72,25 +72,25 @@ public class Game {
     }
 
     private void deucePlayer2Logic() {
-        if (player1Points == FORTY && player2Points == FORTY) {
-            player2Points = AD;
-        } else if (player2Points == AD && player1Points == FORTY) {
-            player2Points = GAME;
+        if (player1Points == 3 && player2Points == 3) {
+            player2Points = 4;
+        } else if (player2Points == 4 && player1Points == 3) {
+            player2Points = 5;
         } else {
-            player1Points = player2Points = FORTY;
+            player1Points = player2Points = 3;
         }
     }
 
     private void notDeucePlayer2Logic() {
-        if (player2Points != FORTY) {
-            player2Points = GamePoints.values()[player2Points.ordinal() + 1];
+        if (player2Points != 3) {
+            player2Points++;
         } else {
-            player2Points = GAME;
+            player2Points = 5;
         }
     }
 
     private void checkDeuce() {
-        if ((player1Points == FORTY) && (player2Points == FORTY)) {
+        if ((player1Points == 3) && (player2Points == 3)) {
             isDeuce = true;
         }
     }

@@ -26,17 +26,17 @@ class GameTest {
     @Test
     @DisplayName("add point to player1")
     void addPlayer1Point() {
-        assertEquals(LOVE, game.getPlayer1Points());
+        assertEquals(0, game.getPlayer1Points());
         game.addPlayer1Point();
-        assertEquals(FIFTEEN, game.getPlayer1Points());
+        assertEquals(1, game.getPlayer1Points());
     }
 
     @Test
     @DisplayName("add point to player2")
     void addPlayer2Point() {
-        assertEquals(LOVE, game.getPlayer2Points());
+        assertEquals(0, game.getPlayer2Points());
         game.addPlayer2Point();
-        assertEquals(FIFTEEN, game.getPlayer2Points());
+        assertEquals(1, game.getPlayer2Points());
     }
 
     @Test
@@ -69,16 +69,16 @@ class GameTest {
         deuceModeOn();
 
         game.addPlayer1Point();
-        assertEquals(AD, game.getPlayer1Points());
+        assertEquals(4, game.getPlayer1Points());
         game.addPlayer2Point();
-        assertEquals(FORTY, game.getPlayer1Points());
-        assertEquals(FORTY, game.getPlayer2Points());
+        assertEquals(3, game.getPlayer1Points());
+        assertEquals(3, game.getPlayer2Points());
 
         game.addPlayer2Point();
-        assertEquals(AD, game.getPlayer2Points());
+        assertEquals(4, game.getPlayer2Points());
         game.addPlayer1Point();
-        assertEquals(FORTY, game.getPlayer1Points());
-        assertEquals(FORTY, game.getPlayer2Points());
+        assertEquals(3, game.getPlayer1Points());
+        assertEquals(3, game.getPlayer2Points());
     }
 
     @Test
@@ -86,9 +86,9 @@ class GameTest {
     void player1WinAfterDeuce() {
         deuceModeOn();
         game.addPlayer1Point();
-        assertEquals(AD, game.getPlayer1Points());
+        assertEquals(4, game.getPlayer1Points());
         game.addPlayer1Point();
-        assertEquals(GAME, game.getPlayer1Points());
+        assertEquals(5, game.getPlayer1Points());
         assertEquals(player1, game.getWinner());
     }
     @Test
@@ -96,9 +96,9 @@ class GameTest {
     void player2WinAfterDeuce() {
         deuceModeOn();
         game.addPlayer2Point();
-        assertEquals(AD, game.getPlayer2Points());
+        assertEquals(4, game.getPlayer2Points());
         game.addPlayer2Point();
-        assertEquals(GAME, game.getPlayer2Points());
+        assertEquals(5, game.getPlayer2Points());
         assertEquals(player2, game.getWinner());
     }
 
